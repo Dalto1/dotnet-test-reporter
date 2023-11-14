@@ -1,5 +1,3 @@
-export const getSectionLink = (section: string): string => section.toLowerCase().replace(/ /g, '-');
-
 export const getStatusIcon = (success: boolean): string => (success ? '✔️' : '❌');
 
 export const formatElapsedTime = (elapsed: number): string => {

@@ -31,7 +31,7 @@ export const publishComment = async (
   const octokit = getOctokit(token);
   const existingComment = await getExistingComment(octokit, context, header);
 
-  const summaryLink = formatSummaryLinkMarkdown(owner, repo, runId, title);
+  const summaryLink = formatSummaryLinkMarkdown(owner, repo, runId);
   const footer = commit ? formatFooterMarkdown(commit) : '';
   const body = `${header}${message}${summaryLink}${footer}`;
 
@@ -44,10 +44,9 @@ export const publishComment = async (
 
 const getContext = (): IContext => {
   const {
-    runId,
     payload: { pull_request, repository, after }
   } = context;
-
+  const runId = context.runId;
   const issueNumber = pull_request?.number ?? -1;
   const [owner, repo] = repository?.full_name?.split('/') || [];
 

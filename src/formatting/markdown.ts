@@ -1,14 +1,13 @@
 import { ICoverage, IResult } from '../data';
-import { formatElapsedTime, getSectionLink, getStatusIcon } from './common';
 
 export const formatHeaderMarkdown = (header: string): string => `## ${header}\n`;
 
 export const formatFooterMarkdown = (commit: string): string =>
   `<br/>_✏️ updated for commit ${commit.substring(0, 7)}_`;
 
-export const formatSummaryLinkMarkdown = (owner: string, repo: string, runId: number, title: string): string => {
+export const formatSummaryLinkMarkdown = (owner: string, repo: string, runId: number): string => {
   const serverUrl = process.env.GITHUB_SERVER_URL || 'https://github.com';
-  const url = `${serverUrl}/${owner}/${repo}/actions/runs/${runId}#user-content-${getSectionLink(title)}`;
+  const url = `${serverUrl}/${owner}/${repo}/actions/runs/${runId}`;
   return `🔍 Click [here](${url}) for more details\n`;
 };
 
