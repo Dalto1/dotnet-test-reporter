@@ -1,4 +1,5 @@
 import { ICoverage, IResult } from '../data';
+import { formatElapsedTime, getStatusIcon } from './common';
 
 export const formatHeaderMarkdown = (header: string): string => `## ${header}\n`;
 

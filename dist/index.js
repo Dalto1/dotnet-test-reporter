@@ -222,9 +222,9 @@ const formatHeaderMarkdown = (header) => `## ${header}\n`;
 exports.formatHeaderMarkdown = formatHeaderMarkdown;
 const formatFooterMarkdown = (commit) => `<br/>_✏️ updated for commit ${commit.substring(0, 7)}_`;
 exports.formatFooterMarkdown = formatFooterMarkdown;
-const formatSummaryLinkMarkdown = (owner, repo, runId, title) => {
+const formatSummaryLinkMarkdown = (owner, repo, runId) => {
     const serverUrl = process.env.GITHUB_SERVER_URL || 'https://github.com';
-    const url = `${serverUrl}/${owner}/${repo}/actions/runs/${runId}#user-content-${(0, common_1.getSectionLink)(title)}`;
+    const url = `${serverUrl}/${owner}/${repo}/actions/runs/${runId}`;
     return `🔍 Click [here](${url}) for more details\n`;
 };
 exports.formatSummaryLinkMarkdown = formatSummaryLinkMarkdown;
@@ -851,7 +851,7 @@ const publishComment = (token, title, message, postNew) => __awaiter(void 0, voi
     const header = (0, markdown_1.formatHeaderMarkdown)(title);
     const octokit = (0, github_1.getOctokit)(token);
     const existingComment = yield getExistingComment(octokit, context, header);
-    const summaryLink = (0, markdown_1.formatSummaryLinkMarkdown)(owner, repo, runId, title);
+    const summaryLink = (0, markdown_1.formatSummaryLinkMarkdown)(owner, repo, runId);
     const footer = commit ? (0, markdown_1.formatFooterMarkdown)(commit) : '';
     const body = `${header}${message}${summaryLink}${footer}`;
     if (existingComment && !postNew) {
@@ -864,7 +864,8 @@ const publishComment = (token, title, message, postNew) => __awaiter(void 0, voi
 exports.publishComment = publishComment;
 const getContext = () => {
     var _a, _b;
-    const { runId, payload: { pull_request, repository, after } } = github_1.context;
+    const { payload: { pull_request, repository, after } } = github_1.context;
+    const runId = github_1.context.runId;
     const issueNumber = (_a = pull_request === null || pull_request === void 0 ? void 0 : pull_request.number) !== null && _a !== void 0 ? _a : -1;
     const [owner, repo] = ((_b = repository === null || repository === void 0 ? void 0 : repository.full_name) === null || _b === void 0 ? void 0 : _b.split('/')) || [];
     return { owner, repo, issueNumber, commit: after, runId };
