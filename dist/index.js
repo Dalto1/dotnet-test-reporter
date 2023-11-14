@@ -223,7 +223,7 @@ exports.formatHeaderMarkdown = formatHeaderMarkdown;
 const formatFooterMarkdown = (commit) => `<br/>_✏️ updated for commit ${commit.substring(0, 7)}_`;
 exports.formatFooterMarkdown = formatFooterMarkdown;
 const formatSummaryLinkMarkdown = (owner, repo, runId, title) => {
-    const serverUrl = process.env.SERVER_URL || 'https://github.com';
+    const serverUrl = process.env.GITHUB_SERVER_URL || 'https://github.com';
     const url = `${serverUrl}/${owner}/${repo}/actions/runs/${runId}#user-content-${(0, common_1.getSectionLink)(title)}`;
     return `🔍 Click [here](${url}) for more details\n`;
 };
