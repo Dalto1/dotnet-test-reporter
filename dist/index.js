@@ -223,8 +223,9 @@ exports.formatHeaderMarkdown = formatHeaderMarkdown;
 const formatFooterMarkdown = (commit) => `<br/>_✏️ updated for commit ${commit.substring(0, 7)}_`;
 exports.formatFooterMarkdown = formatFooterMarkdown;
 const formatSummaryLinkMarkdown = (owner, repo, runId, title) => {
-    const url = `https://github.com/${owner}/${repo}/actions/runs/${runId}#user-content-${(0, common_1.getSectionLink)(title)}`;
-    return `🔍 click [here](${url}) for more details\n`;
+    const serverUrl = process.env.SERVER_URL || 'https://github.com';
+    const url = `${serverUrl}/${owner}/${repo}/actions/runs/${runId}#user-content-${(0, common_1.getSectionLink)(title)}`;
+    return `🔍 Click [here](${url}) for more details\n`;
 };
 exports.formatSummaryLinkMarkdown = formatSummaryLinkMarkdown;
 const formatResultMarkdown = (result) => {
@@ -1519,7 +1520,7 @@ class OidcClient {
                 .catch(error => {
                 throw new Error(`Failed to get ID Token. \n 
         Error Code : ${error.statusCode}\n 
-        Error Message: ${error.result.message}`);
+        Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
             if (!id_token) {
