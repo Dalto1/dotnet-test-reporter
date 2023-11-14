@@ -44,9 +44,9 @@ export const publishComment = async (
 
 const getContext = (): IContext => {
   const {
+    runId,
     payload: { pull_request, repository, after }
   } = context;
-  const runId = context.runId;
   const issueNumber = pull_request?.number ?? -1;
   const [owner, repo] = repository?.full_name?.split('/') || [];
 

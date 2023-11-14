@@ -864,8 +864,7 @@ const publishComment = (token, title, message, postNew) => __awaiter(void 0, voi
 exports.publishComment = publishComment;
 const getContext = () => {
     var _a, _b;
-    const { payload: { pull_request, repository, after } } = github_1.context;
-    const runId = github_1.context.runId;
+    const { runId, payload: { pull_request, repository, after } } = github_1.context;
     const issueNumber = (_a = pull_request === null || pull_request === void 0 ? void 0 : pull_request.number) !== null && _a !== void 0 ? _a : -1;
     const [owner, repo] = ((_b = repository === null || repository === void 0 ? void 0 : repository.full_name) === null || _b === void 0 ? void 0 : _b.split('/')) || [];
     return { owner, repo, issueNumber, commit: after, runId };
